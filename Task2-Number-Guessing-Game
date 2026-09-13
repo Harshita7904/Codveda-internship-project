@@ -1,0 +1,29 @@
+imoprt random
+
+print("====NUMBER GUESSING GAME====")
+print("I have selected a number between 1 to 100.")
+
+secret_number=random.rand_int(1,100)
+max_attempts=7
+
+for attempt in range (1,max_attempts + 1):
+  try:
+    guess=int(inputppp(f"\nAttempt{attempt}/{max_attempts}. Enter your guess:"))
+
+    if guess<1 or guess>100:
+    print("please enter a number between 1 and 100.")
+    continue
+    if guess=secret_number:
+      print("Congratulation! You guessed the correct number.")
+      print("Number of attempts:",attempt)
+      break
+    elif guess<secret_number:
+      print("Too low! Try again.")
+    else:
+       print("Too high! Try again.")
+
+except valueError:
+  print("Please enter a valid number.")
+else:
+  print("\n Game over!")
+  print("The Correct number was:",secret_number)
