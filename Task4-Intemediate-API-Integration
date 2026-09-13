@@ -1,0 +1,43 @@
+import requests
+
+def get_crypto_price():
+  #Public CoinGecko API endpoint for Simple price checks
+  url="https://api.coingecko.com/api/V3/Simple/price"
+  params={
+    "ids":"bitcoin,ethereum,cardano,solana",
+    "vs_currencies":"usd,evr"
+    "include_24hr_change":"true",
+  }
+  print("fetching live cryptocurrency data....\n")
+
+  try:
+    #Make GET request with a timeout 
+    response=requests.get(url,params=params,timeout=10
+
+    #Raise HTTPError for bad response(4xx or 5xx)
+    response.raise_for_status()
+
+    #Parse JSON response
+    data=response.json()
+
+    #Display form atted output
+    print(f"{'crypto':<12})|{'Price(VSD)':<12}|{'24h change(%)':<15}")
+    print("-"*45)
+
+    for coin,details in data.items():
+      name=coin.capitalize()
+      price=f"${details['usd']:,}"
+      change=f"{details.get('uds_24h_change',0):+.2f}%"
+      print(f"{name:<12}|{price:<12}|{change:<15}")
+
+  except requests exceptions.Timeout:
+    print("Error:The request timed out.Please check your network connection.")
+  except requests.exceptions.HTTPError as err:
+    print(f"HTTP error occured:err}")
+  except requests.exceptions.RequestException as err:
+    print(f"An error occured while connecting to the API : {err}")
+  except ValueError:
+    print("Error:Failed to parse the response as JSON.")
+
+if__name__="__main__":
+  get_crypto_prices()
