@@ -1,0 +1,45 @@
+import csv
+import requests
+from bst import BeautiulSoup
+
+def scrape_data():
+  url="http://quotes.toscrape.com/"
+  headers={"User-Agent":"Mozilla15.0"}
+
+  print(f"fetching page content from {url}....")
+    response=requests.get(url,headers=headers,timeout=10)
+    response.raise_for_status()
+    except requests.exceptions.RequestException as e:
+    print(f"failed to retrieve web page :{e}")
+    return
+
+    #Parse HTML structure
+    soup-Beautifulsoup(response.text,"html.parser")
+    quotes_data=[]
+
+    #Locate container elements
+    quote_elements=soup.find_all("div",class_="quote")
+    for quote in quote_elements:
+      text=quote.find("span",class_="text").get_text()
+      author=quote.find("small",class_="author").get_text()
+      quotes_data.append({"quote":text,"author":author})
+
+    if not quote_data:
+      print("No data extracted.")
+      return
+
+    #Export scraed data to CSV format
+    csv_file="scrapped_quotes.csv"
+    try:
+      with open(csv_file,"w",newline="",encoding="utf-8")as file:
+        writer=csv.DicWriter(file,fieldnames=["quote","author"])
+        writer.writeheader()
+        writer.writerows(quotes_data)
+    print(
+      f"Successfully scrapped{len(quotes_data)}records and saved to '{csv_file}'."
+    )
+  except IDError as e:
+    print(f"failed to write data to CSV :{e}")
+
+if__name__=="__main__"
+  scrape_data()
